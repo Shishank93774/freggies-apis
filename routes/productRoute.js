@@ -2,15 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../Schemas/ProductSchema');
 
-router.get('/', async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
 router.get('/vegetables', async (req, res) => {
   try {
     const products = await Product.find({"category": "Vegetables"});
@@ -29,14 +20,24 @@ router.get('/fruits', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/getInfo/:id', async (req, res) => {
+  try{
+    const product = await Product.findById(req.params.id);
+    res.json(product);
+  }catch(err){
+    res.status(500).json({ error: err.message });
+  }
+})
+
+router.get('/', async (req, res) => {
   try {
-    const products = await Product.findById(req.params.id);
+    const products = await Product.find();
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 router.post('/', async (req, res) => {
   try {
