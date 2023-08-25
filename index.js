@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const productRoutes = require('./routes/productRoute');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoute');
+const dotenv = require("dotenv");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = 'mongodb+srv://test:test1234@products.h99ubbs.mongodb.net/?retryWrites=true&w=majority';
 app.use(cors());
+dotenv.config();
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
